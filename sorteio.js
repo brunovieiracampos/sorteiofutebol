@@ -10,6 +10,12 @@ var quantidadeNumeroAleatorio = 0;
 
 $(document).ready(function(){
 
+  $("#time1").hide();
+  $("#time2").hide();
+  $("#time3").hide();
+  $("#timeProximo").hide();
+  $("#divSinalizador").hide();
+  
 
     $("#sortear_jogador").click(function(){
       sortearJogador();
@@ -25,16 +31,21 @@ function adicionarCardTimes(){
     quantidadeTimes = parseInt($("#quantidadeTimes").val());
 
     if(quantidadeTimes == 1){
+      $("#time1").show();
       $("#time2").hide();
       $("#time3").hide();
+      $("#timeProximo").show();
     }
     else if(quantidadeTimes == 2){
+      $("#time1").show();
       $("#time2").show();
       $("#time3").hide();
+      $("#timeProximo").show();
     }else if(quantidadeTimes == 3){
       $("#time1").show();
       $("#time2").show();
       $("#time3").show();
+      $("#timeProximo").show();
     }
 
     quantidadePessoas = parseInt($("#quantidadePessoas").val());
@@ -48,30 +59,41 @@ function adicionarCardTimes(){
 }
 
 function sortearJogador(){
-
     $("#corTime1").removeClass("bg-warning");
     $("#corTime2").removeClass("bg-primary");
     $("#corTime3").removeClass("bg-success");
     $("#corProximo").removeClass("bg-dark");
+    $("#divSinalizador").hide();
     
     var timeAleatorio = Math.floor(quantidadeNumeroAleatorio * Math.random() + 1);
 
 
     setTimeout(() => {
 
+      $("#divSinalizador").show();
+
     if(quantidadeTimes == 2){
         if(timeAleatorio == 1 && exibirQuantidadeTime1 < quantidadePessoasPorTime){
             exibirQuantidadeTime1++;
             $("#quantidadeTime1").text(exibirQuantidadeTime1);
             $("#corTime1").addClass("bg-warning");
+            $("#divSinalizador").removeClass("text-primary");
+            $("#divSinalizador").removeClass("text-dark");
+            $("#divSinalizador").addClass("text-warning");
         }else if(timeAleatorio == 2 && exibirQuantidadeTime2 < quantidadePessoasPorTime){
             exibirQuantidadeTime2++;
             $("#quantidadeTime2").text(exibirQuantidadeTime2);
             $("#corTime2").addClass("bg-primary");
+            $("#divSinalizador").removeClass("text-warning");
+            $("#divSinalizador").removeClass("text-dark");
+            $("#divSinalizador").addClass("text-primary");
         }else if(timeAleatorio == 3 && exibirQuantidadeProximos < quantidadeProximos){
              exibirQuantidadeProximos++;
            $("#quantidadeProximos").text(exibirQuantidadeProximos);
            $("#corProximo").addClass("bg-dark");
+           $("#divSinalizador").removeClass("text-warning");
+           $("#divSinalizador").removeClass("text-primary");
+           $("#divSinalizador").addClass("text-dark");
          }else{
             if((exibirQuantidadeTime1 + exibirQuantidadeTime2 + exibirQuantidadeProximos) == quantidadePessoas){
                 $("#sortear_jogador").attr("disabled", true);
@@ -80,6 +102,8 @@ function sortearJogador(){
                 $("#corTime2").addClass("bg-primary");
                 $("#corTime3").addClass("bg-success");
                 $("#corProximo").addClass("bg-dark");
+
+                $("#divSinalizador").hide();
 
              }else{
                 sortearJogador();
@@ -92,18 +116,34 @@ function sortearJogador(){
             exibirQuantidadeTime1++;
             $("#quantidadeTime1").text(exibirQuantidadeTime1);
             $("#corTime1").addClass("bg-warning");
+            $("#divSinalizador").removeClass("text-primary");
+            $("#divSinalizador").removeClass("text-success");
+            $("#divSinalizador").removeClass("text-dark");
+            $("#divSinalizador").addClass("text-warning");
         }else if(timeAleatorio == 2 && exibirQuantidadeTime2 < quantidadePessoasPorTime){
             exibirQuantidadeTime2++;
             $("#quantidadeTime2").text(exibirQuantidadeTime2);
             $("#corTime2").addClass("bg-primary");
+            $("#divSinalizador").removeClass("text-warning");
+            $("#divSinalizador").removeClass("text-success");
+            $("#divSinalizador").removeClass("text-dark");
+            $("#divSinalizador").addClass("text-primary");
         } else if(timeAleatorio == 3 && exibirQuantidadeTime3 < quantidadePessoasPorTime){
             exibirQuantidadeTime3++;
             $("#quantidadeTime3").text(exibirQuantidadeTime3);
             $("#corTime3").addClass("bg-success");
+            $("#divSinalizador").removeClass("text-warning");
+            $("#divSinalizador").removeClass("text-primary");
+            $("#divSinalizador").removeClass("text-dark");
+            $("#divSinalizador").addClass("text-success");
         }else if(timeAleatorio == 4 && exibirQuantidadeProximos < quantidadeProximos){
             exibirQuantidadeProximos++;
             $("#quantidadeProximos").text(exibirQuantidadeProximos);
             $("#corProximo").addClass("bg-dark");
+            $("#divSinalizador").removeClass("text-warning");
+            $("#divSinalizador").removeClass("text-primary");
+            $("#divSinalizador").removeClass("text-success");
+            $("#divSinalizador").addClass("text-dark");
          }else{
             if((exibirQuantidadeTime1 + exibirQuantidadeTime2 + exibirQuantidadeTime2 + exibirQuantidadeProximos) == quantidadePessoas){
                 $("#sortear_jogador").attr("disabled", true)
@@ -113,11 +153,15 @@ function sortearJogador(){
                 $("#corTime3").addClass("bg-success");
                 $("#corProximo").addClass("bg-dark");
 
+                $("#divSinalizador").hide();
+
              }else{
                 sortearJogador();
              }
          }
     }
+
+    
 
     }, 100);
 }
